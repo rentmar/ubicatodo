@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class DistritoModel extends Model
+class ServicioModel extends Model
 {
-    protected $table            = 'distrito';
-    protected $primaryKey       = 'id_distrito';
+    protected $table            = 'servicio';
+    protected $primaryKey       = 'id_servicio';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nombre', 'url', 'estado' ];
+    protected $allowedFields    = ['nombre', 'descripcion', 'direccion', 'Latitud', 'Longitud',];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -43,4 +43,24 @@ class DistritoModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+
+    public function srvPorDistCat($distrito, $categoria){
+        $data = [
+            "foo" => $distrito,
+            "bar" => $categoria,
+        ];
+        return $data;
+
+    }
+    
+    public function servPorDistritoTipo($iddistrito, $idcategoria)
+    {
+        $sql = "SELECT * "
+            ."FROM servicio  "
+            ."WHERE servicio.id_distrito = ?  "
+            ."AND servicio.id_categoria = ?  ";
+        $qry = $this->db->query($sql, [$iddistrito, $idcategoria ]);
+        return $qry->getResult();
+    }
 }
