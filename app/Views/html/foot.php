@@ -44,6 +44,9 @@
 
     <!-- Bootstrap core JavaScript-->
     <script>var baseurl = "<?php echo base_url(); ?>";</script>
+    <script>
+    var servicios = <?php if(isset($servicios)){echo $servicios;}  ?>; 
+    </script>
     <script src="<?php echo base_url('assets/vendor/jquery/jquery.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -30,65 +30,42 @@ class Mapa extends BaseController
 
         $dist = new DistritoModel();
         $categoria = new CategoriaModel();
+        $srv = new servicioModel();
 
         $distrito = $dist->find($iddistrito);
+        $servicios = $srv->where('id_distrito', $idd)->findAll();
+        $servicios_json = json_encode($servicios);
+
+        //var_dump($distrito);
         
+
         $datos['distrito'] = $distrito;
         $datos['categoria'] = $categoria->findAll();
+        $datos['servicios'] = $servicios_json;
 
         return view('html/head')
                 .view('html/nav')
                 .view('mapa/mapa-distrito', $datos)
-                .view('html/foot');
+                .view('html/foot', $datos);
+
+    }
+
+    public function servicio(){
+        $request = service('request');
+        $postData = $request->getPost();
+        $serviciosAll = new ServicioModel();
+        $servicio = $serviciosAll->servPorDistritoTipo($postData['distrito'], $postData['categoria']);
+        $data['servicio'] = $servicio;
+        return $this->response->setJSON($data);       
+    }
+
+    public function administrar(){
+        return view('html/head')
+                .view('html/nav')
+                .view('mapa/administrar', $datos)
+                .view('html/foot', $datos);
 
     }
 
 
-    //Funcion json
-    //Datos json Tipos de plenaria nacional
-	public function gettiposervicio()
-	{
-        $json = array();
-        $servicios = new ServicioModel();
-
-        $d = $this->request->getPost('d');       
-        $c = $this->request->getPost('c');
-        $json = $servicios->srvPorDistCat($d, $c);
-
-        header('Content-Type: application/json');
-		echo json_encode($json);
-        
-		//$json = array();
-        //$servicios = new ServicioModel();
-
-        //$d = $this->request->getPost('d');       
-        //$c = $this->request->getPost('categoria');
-        //$json = $servicios->srvPorDistCat($d, 2);  
-
-        //$categoria = new CategoriaModel();
-        //$json = $categoria->findAll();
-
-		//$instancia = $this->input->post('instancia');
-		//$json = $this->TPlenaria_model->leerTPlenariaPorISeguimiento($instancia);
-		
-        //header('Content-Type: application/json');
-		//echo json_encode($json);
-	}
-
-    //Servicios segun su categoria
-    public function getservicios()
-    {
-        $srvs = new ServicioModel();
-        
-        $s = $srvs->servPorDistritoTipo(1, 1);
-        var_dump($s);
-
-        
-        
-        
-        /*$json = array();
-
-        header('Content-Type: application/json');
-		echo json_encode($json);*/
-    }
 }

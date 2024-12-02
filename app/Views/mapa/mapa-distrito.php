@@ -37,22 +37,23 @@
 
 
             <!-- Default Card Example -->
+            <!--
             <div class="card mb-4">
                 <div class="card-body">
-                    <?php helper('form'); ?>
-                    <?php echo form_open(); ?>
+                    <?php //helper('form'); ?>
+                    <?php //echo form_open(); ?>
                         <div>
                             <label for="sel1" class="form-label">Categoria:</label>
                             <select class="form-select" id="categoria" name="categoria">
                                 <option>Selecciona una categoria</option>
-                                <?php foreach($categoria as $c): ?>
-                                    <option value="<?php echo $c->id_categoria; ?>" ><?php echo $c->nombre;?></option>
-                                <?php endforeach; ?>
+                                <?php //foreach($categoria as $c): ?>
+                                    <option value="<?php //echo $c->id_categoria; ?>" ><?php // echo $c->nombre;?></option>
+                                <?php //endforeach; ?>
                             </select>
                         </div>    
-                    <?php echo form_close(); ?>
+                    <?php //echo form_close(); ?>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Basic Card Example -->
             <div class="card shadow mb-4">
